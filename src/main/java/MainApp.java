@@ -23,7 +23,7 @@ public class MainApp {
 
             switch (choice) {
                 case 1:
-                    //String name = input.next();
+                    String name = input.next();
                     dpsTools.createBucket();
                     break;
                 case 2:
