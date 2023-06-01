@@ -29,12 +29,15 @@ public class DpsTools {
             .build();
     }
 
-    String bucketName = "test-s3-java-bucket-" + UUID.randomUUID();
+    private String bucketName;
     String key = "MyObjectKey";
     
-    public void createBucket() {
+    // creating a bucket with user inputted name
+    public void createBucket(String newBuckName) {
+        bucketName = newBuckName;
         s3.createBucket(bucketName);
     }
+    
     
     public void listBuckets() {
         List<Bucket> buckets = s3.listBuckets();
@@ -64,12 +67,12 @@ public class DpsTools {
         }
     }
     
-    public void deleteObject() {
-        s3.deleteObject(bucketName, key);
+    public void deleteObject(String newBuckName1) {
+        s3.deleteObject(newBuckName1, key);
     }
 
-    public void deleteBucket() {
-        s3.deleteBucket(bucketName);   
+    public void deleteBucket(String newBuckName2) {
+        s3.deleteBucket(newBuckName2);   
     }
     
     private static void displayTextInputStream(InputStream input) throws IOException {

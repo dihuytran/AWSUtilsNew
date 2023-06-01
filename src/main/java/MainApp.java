@@ -9,7 +9,7 @@ public class MainApp {
         DpsTools dpsTools = new DpsTools();
 
         while (true) {
-            System.out.println("Plinease choose an option:");
+            System.out.println("Please choose an option:");
             System.out.println("1. Create a bucket");
             System.out.println("2. Upload a file to S3 Bucket");
             System.out.println("3. Download file from S3 bucket");
@@ -23,18 +23,26 @@ public class MainApp {
 
             switch (choice) {
                 case 1:
+                    System.out.println("Enter a name for your bucket, it must adhere to AWS naming rules.");
                     String name = input.next();
-                    dpsTools.createBucket();
+                    System.out.println("");
+                    System.out.println("Here are the current existing S3 Buckets.");
+                    dpsTools.createBucket(name);
+                    dpsTools.listBuckets();
                     break;
                 case 2:
-                
+                    System.out.println("Uploading a txt document to your S3 bucket");
                     dpsTools.uploadObject();
                 case 3:
+                System.out.println("Downloading a file.");
                     dpsTools.downloadObject();
                     break;
                 case 4:
-                    dpsTools.deleteObject();
-                    dpsTools.deleteBucket();
+                    System.out.println("Enter the name of the bucket you wish to delete and its contents.");
+                    System.out.println("Upon deletion of the bucket, the terminal will end the program.");
+                    String name2 = input.next();
+                    dpsTools.deleteObject(name2);
+                    dpsTools.deleteBucket(name2);
                 /*case 5:
                     dpsTools.retrieveMessagesFromSQS();
                     break;
@@ -43,7 +51,9 @@ public class MainApp {
                     break;
                 case 7:
                     dpsTools.submitMessageToSNS();
-                    break;*/
+                    break;
+                case 9:
+                    // TODO */
                 case 8:
                     System.exit(0);
                     break;
