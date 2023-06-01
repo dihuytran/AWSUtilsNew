@@ -3,6 +3,11 @@ import java.util.Scanner;
 
 public class MainApp {
 
+    /* NOTICE: execution of this program requires the necesarray Java and Maven librarioes installed as well as 
+     * the AWS SDK Tool Kit and valid IAM credentials to connect and access S3
+     */
+
+
     public static void main(String[] args) throws IOException {
 
         Scanner input = new Scanner(System.in);
@@ -43,17 +48,19 @@ public class MainApp {
                     String name2 = input.next();
                     dpsTools.deleteObject(name2);
                     dpsTools.deleteBucket(name2);
-                /*case 5:
+                    System.out.println("Here are your current buckets, post-deletion.");
+                    dpsTools.listBuckets();
+                /*case 5: TODO: Ask user for SQS queue name and consume messages from it
                     dpsTools.retrieveMessagesFromSQS();
                     break;
-                case 6:
+                case 6: TODO: Submit a message to SQS
                     dpsTools.submitMessageToSQS();
                     break;
-                case 7:
+                case 7: TOOD: Submit a message to SNS
                     dpsTools.submitMessageToSNS();
                     break;
-                case 9:
-                    // TODO */
+                case 9: TOOD: Testing RDS [TBD]
+                 */
                 case 8:
                     System.exit(0);
                     break;
