@@ -1,6 +1,11 @@
 import java.io.IOException;
 import java.util.Scanner;
 
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.sqs.SqsClient;
+import software.amazon.awssdk.services.sqs.model.*;
+import java.util.List;
+
 public class MainApp {
 
     /* NOTICE: execution of this program requires the necesarray Java and Maven librarioes installed as well as 
@@ -12,6 +17,10 @@ public class MainApp {
 
         Scanner input = new Scanner(System.in);
         DpsTools dpsTools = new DpsTools();
+
+        SqsClient sqsClient = SqsClient.builder()
+                .region(Region.US_EAST_1)  // Specify the AWS region
+                .build();
 
         while (true) {
             System.out.println("Please choose an option:");
@@ -50,17 +59,22 @@ public class MainApp {
                     dpsTools.deleteBucket(name2);
                     System.out.println("Here are your current buckets, post-deletion.");
                     dpsTools.listBuckets();
-                /*case 5: TODO: Ask user for SQS queue name and consume messages from it
-                    dpsTools.retrieveMessagesFromSQS();
+                case 5:
+                    System.out.println("Enter the URL of your desired SQS");
+                    String sqs = input.next();
+                    System.out.println("Here is the latest message:");
+                    System.out.println("");
+                    DpsTools.receiveMessages(sqsClient, sqs);
                     break;
-                case 6: TODO: Submit a message to SQS
-                    dpsTools.submitMessageToSQS();
-                    break;
-                case 7: TOOD: Submit a message to SNS
+                case 6:
+                System.out.println("Enter the URL of your desired SQS to send a message to");
+                    String msg = input.next();
+                    DpsTools.sendMessage(sqsClient, msg);
+               /* case 7: TOOD: Submit a message to SNS
                     dpsTools.submitMessageToSNS();
                     break;
                 case 9: TOOD: Testing RDS [TBD]
-                 */
+                */
                 case 8:
                     System.exit(0);
                     break;
