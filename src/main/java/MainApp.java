@@ -1,8 +1,14 @@
 import java.io.IOException;
 import java.util.Scanner;
 
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
+import software.amazon.awssdk.services.sqs.SqsClientBuilder;
 import software.amazon.awssdk.services.sqs.model.*;
 import java.util.List;
 
@@ -20,7 +26,7 @@ public class MainApp {
 
         SqsClient sqsClient = SqsClient.builder()
                 .region(Region.US_EAST_1)  // Specify the AWS region
-                .build();
+                .build(); 
 
         while (true) {
             System.out.println("Please choose an option:");
@@ -68,8 +74,8 @@ public class MainApp {
                     break;
                 case 6:
                 System.out.println("Enter the URL of your desired SQS to send a message to");
-                    String msg = input.next();
-                    DpsTools.sendMessage(sqsClient, msg);
+                    String url = input.next();
+                    DpsTools.sendMessages(sqsClient, url);
                /* case 7: TOOD: Submit a message to SNS
                     dpsTools.submitMessageToSNS();
                     break;

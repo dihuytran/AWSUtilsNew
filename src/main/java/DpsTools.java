@@ -11,23 +11,10 @@ import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 
 // SQS imports
 import software.amazon.awssdk.services.sqs.SqsClient;
-import com.amazonaws.services.sqs.AmazonSQS;
-import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
-import com.amazonaws.services.sqs.model.SendMessageRequest;
-import software.amazon.awssdk.services.sqs.model.Message;
-import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
-import software.amazon.awssdk.services.sqs.model.SqsException;
+import com.amazonaws.services.sqs.*;
+import software.amazon.awssdk.services.sqs.model.*;
 
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityRequest;
-import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
-import software.amazon.awssdk.services.sqs.model.DeleteMessageRequest;
-import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
-import software.amazon.awssdk.services.sqs.model.GetQueueUrlResponse;
-import software.amazon.awssdk.services.sqs.model.ListQueuesRequest;
-import software.amazon.awssdk.services.sqs.model.ListQueuesResponse;
-import software.amazon.awssdk.services.sqs.model.SendMessageBatchRequest;
-import software.amazon.awssdk.services.sqs.model.SendMessageBatchRequestEntry;
+
 
 public class DpsTools {
     private AmazonS3 s3;
@@ -49,12 +36,11 @@ public class DpsTools {
             .withRegion(Regions.US_EAST_1)
             .build();
 
-       /* sqs = AmazonSQSClientBuilder.standard()
+        sqs = AmazonSQSClientBuilder.standard()
             .withCredentials(new AWSStaticCredentialsProvider(credentials))
             .withRegion(Regions.US_EAST_1)
             .build();
-            */
-
+        
     }
 
     // ALL CODE REGARDING S3 STARTS HERE
@@ -143,16 +129,15 @@ public class DpsTools {
         }
     }
     
-     public static void sendMessage(SqsClient sqsClient, String queueUrl) {
+     public static void sendMessages(SqsClient sqsClient, String queueUrl) {
         System.out.println("\nSend message");
         try {
-            // snippet-start:[sqs.java2.sqs_example.send_message]
+
             sqsClient.sendMessage(SendMessageRequest.builder()
                 .queueUrl(queueUrl)
-                .messageBody("Hello world!")
+                .messageBody("Hello world from AWS Utils")
                 .delaySeconds(10)
                 .build());
-            // snippet-end:[sqs.java2.sqs_example.send_message]
 
         } catch (SqsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
